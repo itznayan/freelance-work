@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Warm Coffee Palette */
+  --background: 30 20% 98%;
+  /* Cream */
+  --foreground: 24 10% 10%;
+  /* Espresso */
+
+  --primary: 24 10% 10%;
+  /* Espresso */
+  --primary-foreground: 30 20% 98%;
+
+  --secondary: 26 20% 92%;
+  /* Light Latte */
+  --secondary-foreground: 24 10% 10%;
+
+  --muted: 30 15% 94%;
+  --muted-foreground: 24 5% 45%;
+
+  --accent: 14 55% 55%;
+  /* Terracotta/Rust */
+  --accent-foreground: 30 20% 98%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 24 10% 85%;
+  --input: 24 10% 85%;
+  --ring: 24 10% 10%;
+
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    @apply font-semibold tracking-tight;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
