@@ -1,10 +1,190 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.block-line-wrapper {
+  margin: 0 auto;
+}
+
+.block-line-wrapper {
+  position: relative;
+  width: max-content;
+  display: block;
 
 
+}
+
+.block-line {
+  position: relative;
+  display: block;
+}
+
+
+.block-revealer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 101%;
+  height: 101%;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 2;
+}
+
+#card-1 .card-inner {
+  background-color: #22134E;
+  /* Purple */
+}
+
+#card-2 .card-inner {
+  /* background-color: #0891b2; */
+  background-color: #FCED6C;
+  /* Cyan */
+}
+
+#card-3 .card-inner {
+  background-color: #00BDDD;
+  /* background-color: #00C9F5; */
+  /* Orange */
+}
+
+#card-4 .card-inner {
+  background-color: #0C3E35;
+  /* Dark Neutral */
+}
+
+
+/* ===== SECTION ===== */
+.sticky-card {
+  position: relative;
+  width: 100%;
+  background-color: #000;
+
+}
+
+/* ===== CARD WRAPPER ===== */
+.card {
+  position: sticky;
+  width: 100%;
+  height: 125svh;
+  /* safe viewport height */
+  /* slate-600 */
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ===== INNER CARD (ANIMATED) ===== */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  text-align: center
+}
+
+/* ===== INFO BLOCK ===== */
+.card-info {
+  width: 35%;
+  margin: 2em 0 2em 0;
+  padding: 0 4em;
+  text-align: left;
+}
+
+.card-info p {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+}
+
+/* ===== TITLE ===== */
+.card-title h1 {
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 10em;
+  line-height: 1;
+  letter-spacing: -0.4rem;
+}
+
+/* ===== DESCRIPTION ===== */
+.card-desc {
+  width: 60%;
+  margin: 0 auto 0 auto;
+
+}
+
+.card-desc p {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+
+}
+
+/* ===== IMAGE / MEDIA BLOCK ===== */
+.card-img {
+
+  margin-top: 3.5em;
+  /* height: 100vh; */
+
+}
+
+.card-img img {
+  width: 100%;
+
+  max-height: 100%;
+  object-fit: fill;
+  background-color: #000;
+}
+
+
+.card-inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: var(--after-opacity, 0);
+  will-change: opacity;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (max-width: 1000px) {
+
+  h1,
+  .card-desc {
+    width: calc(100% - 4rem);
+    font-size: 3rem;
+    margin: 0 auto;
+  }
+
+  .card-info {
+    width: 75%;
+    margin: auto;
+    padding: 4em 2em;
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 3rem;
+  }
+
+  .card-desc p {
+    font-size: 1.25rem;
+
+  }
+}
 
 :root {
   --font-body: 'DM Sans', sans-serif;
@@ -65,3 +245,7 @@
 .font-display {
   font-family: var(--font-display);
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

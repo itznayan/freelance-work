@@ -1,20 +1,29 @@
 "use client";
 
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  AnimatePresence,
+} from "framer-motion";
 import { Link } from "wouter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Index from "./navbar/Index";
+import { Pivot as Hamburger } from "hamburger-react";
+import Navbar from "./Navbar";
 
 export function Navigation() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
 
-    if (latest > previous && latest > 300) {
+    if (latest > previous && latest > 50) {
       // scrolling down
       setHidden(true);
+      setIsActive(false);
     } else {
       // scrolling up
       setHidden(false);
@@ -29,23 +38,32 @@ export function Navigation() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed top-0 z-50 w-full h-20 flex justify-center bg-zinc-800/80 px-12 backdrop-blur-md"
+      className="fixed top-0 z-50 w-full h-20 flex items-center justify-between bg-zinc-800/80 px-12 backdrop-blur-md"
     >
-      <div className="flex w-full items-center justify-between max-w-7xl">
+      <div className="flex w-full  pl-8 items-center justify-between">
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <img
-            src="/images/logo.png"
-            className="h-8 w-auto transition-transform duration-300 group-hover:scale-105"
-            alt="Logo"
-          />
-          <span className="font-display text-3xl font-bold tracking-tight text-white">
+        <div>
+          <Link href="/" className="flex items-center gap-2 group">
+            <img
+              src="public\images\newlogo.png"
+              className="h-8 w-auto transition-transform invert scale-[6] duration-300 "
+              alt="Logo"
+            />
+
+            {/* <span className="font-display text-3xl font-bold tracking-tight text-white">
             Spritz
-          </span>
-        </Link>
+            </span> */}
+          </Link>
+        </div>
 
         {/* MENU */}
-        <Index />
+        {/* <Index /> */}
+        <div className="fixed right-0 mx-8 z-10 bg-slate-400  rounded-full p-1 px-2">
+          <Hamburger toggled={isActive} toggle={setIsActive} direction="left" />
+        </div>
+        <AnimatePresence mode="wait">
+          {isActive && <Navbar isActive={isActive} setIsActive={setIsActive} />}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );

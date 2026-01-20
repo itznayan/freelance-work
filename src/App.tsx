@@ -1,36 +1,57 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
+import { Switch, Route, useLocation } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
+import { Toaster } from "@/components/ui/toaster";
+
+import { queryClient } from "./lib/queryClient";
+
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import Contact from "@/pages/Contact";
-import LocomotiveScroll from "locomotive-scroll";
-import { useEffect } from "react";
+import Project from "@/pages/Project";
+import NotFound from "@/pages/not-found";
+
+import { ScrollToTop } from "./functions/ScrollToTop";
+
+import Layout from "./components/Layout";
+import About from "./pages/About";
+import { ScrollToHash, ScrollToHashGSAP } from "./functions/ScrollToHash";
+import { AnimatePresence } from "framer-motion";
+import Curve from "./Animation/Curve";
 
 function Router() {
-  const locomotiveScroll = new LocomotiveScroll();
+  const [location] = useLocation();
 
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/services" component={Services} />
-      <Route path="/contact" component={Contact} />
-      <Route component={NotFound} />
-    </Switch>
+    <AnimatePresence mode="wait" initial={false}>
+      <Curve key={location}>
+        <Switch location={location}>
+          <Route path="/" component={Home} />
+          <Route path="/services" component={Services} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/project" component={Project} />
+          <Route path="/about" component={About} />
+          <Route component={NotFound} />
+        </Switch>
+      </Curve>
+    </AnimatePresence>
   );
 }
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <ScrollToTop />
+          <ScrollToHash />
+          <Layout>
+            <Toaster />
+            <Router />
+          </Layout>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </>
   );
 }
 
